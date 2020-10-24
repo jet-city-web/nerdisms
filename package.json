@@ -1,50 +1,15 @@
 {
-  "name": "nerdisms",
+  "name": "learn-starter",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.11.5",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "faunadb": "^3.0.1",
-    "http-proxy-middleware": "^1.0.6",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "^4.0.0",
-    "web-vitals": "^0.2.4"
-  },
   "scripts": {
-    "bootstrap": "node ./scripts/bootstrap-fauna-database.js",
-    "checkForFaunaKey": "node ./scripts/check-for-fauna-key.js",
-    "start": "npm-run-all --parallel checkForFaunaKey startApp startServer",
-    "startApp": "react-scripts start",
-    "startServer": "netlify-lambda serve functions -c ./webpack.config.js",
-    "prebuild": "echo 'setup faunaDB' && npm run bootstrap",
-    "build": "npm-run-all --parallel build:**",
-    "build:app": "react-scripts build",
-    "build:functions": "netlify-lambda build functions -c ./webpack.config.js",
-    "test": "react-scripts test --env=jsdom"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "netlify-lambda": "^2.0.1",
-    "npm-run-all": "^4.1.5"
+  "dependencies": {
+    "next": "9.5.3",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
   }
 }
