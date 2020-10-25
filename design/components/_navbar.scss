@@ -1,0 +1,73 @@
+.blink {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+nav {
+    background:#000;
+    color: $greenScreen;
+    display:flex;
+    font-family: $monoFont;
+    font-size: 1.1rem;
+    font-weight: 900;
+    height:2em;
+    letter-spacing: .1rem;
+    line-height:2em;
+    padding: 0 1rem;
+    width: 100%;
+
+    span {
+      padding: 0 1em;
+    }
+
+    ul {
+        display:flex;
+        flex-direction:row;
+
+        li {
+            padding:0 1em;
+            position:relative;
+        }
+
+        li:hover {
+           background:#ccc;
+
+           a {
+               color: #000;
+           }
+        }
+    }
+
+    a {
+        text-decoration:none;
+        color:$greenScreen;
+
+        &:after {
+            bottom:0;
+            content:"";
+            left:0;
+            position:absolute;
+            right:0;
+            top:0;
+        }
+    }
+}
+
+
+@media (max-width: 959px) {
+
+  header {
+
+    nav {
+      width: 0px;
+      display:flex;
+      flex-direction:column;
+    }
+  }
+
+}

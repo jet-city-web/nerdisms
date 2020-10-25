@@ -1,0 +1,67 @@
+#__next > footer {
+
+    background: $baseLight;
+    border-top:1px solid #ccc;
+    color: black;
+    display:flex;
+    justify-content: space-around;
+    padding: 2em;
+    width:100%;
+
+    h2 {
+      margin-bottom: .5rem;
+    }
+
+    .social {
+
+      ul {
+
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+
+          align-items: start;
+          display:flex;
+          line-height: 1.5rem;
+          margin-bottom: 1rem;
+
+          span {
+            margin-right: .3rem;
+          }
+
+          a {
+            text-decoration:none;
+            color: $amberScreen;
+          }
+          .social-icon {
+            height: 25px;
+            width: 25px;
+          }
+        }
+      }
+    }
+
+    .xkcd {
+      width: 35vw;
+    }
+
+}
+
+    @media (max-width: 959px) {
+
+      #__next > footer {
+      flex-direction:column;
+
+      > div {
+        margin-bottom: 3rem;
+      }
+
+      .xkcd {
+        width: 95vw;
+      }
+
+    }
+
+    }

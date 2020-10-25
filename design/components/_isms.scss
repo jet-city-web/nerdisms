@@ -1,0 +1,103 @@
+.isms {
+
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  .ism {
+
+    height: 350px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    width: 350px;
+
+    .front {
+
+      background: #fff;
+      border: 2px solid $greenScreen;
+      border-radius: 10px;
+      display:flex;
+      flex-direction:column;
+      height: 100%;
+      position:relative;
+      width: 100%;
+
+      &:after {
+        content: ' ';
+        background: url('/assets/nerdisms-secondary-logo-green.png') no-repeat;
+        background-size: 100px;
+        position:absolute;
+        left:25px;
+        height: 50px;
+        width: 100px;
+      }
+
+      &.outside {
+        &:after {
+          bottom:-39.4px;
+        }
+      }
+
+      &.inside {
+        &:after {
+          bottom:-18.4px;
+        }
+      }
+
+      .content {
+        align-items: center;
+        display:flex;
+        flex: 1;
+        font-family: $monoFont;
+        font-size: 1.5rem;
+        font-weight: bolder;
+        justify-content: center;
+        padding: 1.5rem;
+      }
+
+      &:hover {
+        footer {
+          opacity: 1;
+        }
+      }
+
+      footer {
+        align-items: center;
+        display:flex;
+        justify-content: flex-end;
+        height: 50px;
+        margin-right: 1rem;
+        opacity: 0;
+        transition: all .5s ease-in;
+
+        .icon {
+
+          cursor: pointer;
+          font-size: 1.5rem;
+          margin: 0 .5rem;
+
+          &.upvote {
+            color: red;
+          }
+          &.downvote {
+            color: $amberScreen;
+          }
+        }
+      }
+
+    }
+
+  }
+
+}
+
+@media (max-width: 959px) {
+
+  .isms {
+     .ism {
+        width: 100%;
+     }
+
+  }
+
+}

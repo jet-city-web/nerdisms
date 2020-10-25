@@ -1,0 +1,19 @@
+
+body {
+    background: lighten($baseDark, 75%);
+    color: $baseDark;
+    font-family: $baseFont;
+    &:after {
+        @include shadow-bottom-fuzzy;
+    }
+
+    .amber {
+      color: $amberScreen;
+    }
+}
+
+main {
+    padding: 2em;
+}
+
+@include headings();
