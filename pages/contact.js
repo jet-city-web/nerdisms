@@ -4,36 +4,28 @@ import { useForm } from "react-hook-form";
 import { If, Then, Else } from 'react-if';
 import axios from 'axios';
 
-import Ism from '../components/ism.js';
-
 export default function Contact() {
 
-  const [ism, setIsm] = useState(undefined);
+  const [message, setMessage] = useState(null);
   const { register, handleSubmit, watch, errors } = useForm();
 
   const onSubmit = async (data) => {
-    // Send using internal API
-    const response = await axios.post('/api/isms', data);
-    setIsm(response.data);
+    const response = await axios.post('/api/email', data);
+    setMessage(response.data);
   }
 
   return (
     <>
       <Head>
-        <title>Nerdisms: Add an 'ism</title>
+        <title>Nerdisms: Contact Us</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>Nerdisms: Add your 'ism here...</h1>
+        <h1>Nerdisms: Contact Us</h1>
 
-        <If condition={ism}>
+        <If condition={!!message}>
           <Then>
-            <h2>Thank You</h2>
-            <p>Here's a preview of your nerdism.</p>
-            <p>Our content team will review this and potentially add it to the list.</p>
-            <div className="preview">
-              <Ism ism={ism} />
-            </div>
+            <div>{message}</div>
           </Then>
           <Else>
 
@@ -41,7 +33,7 @@ export default function Contact() {
               {/* register your input into the hook by invoking the "register" function */}
 
               <label>
-                <input type="text" name="contributor" ref={register} required={true} />
+                <input type="text" name="name" ref={register} required={true} />
                 <span>Your Full Name</span>
               </label>
 
@@ -51,13 +43,8 @@ export default function Contact() {
               </label>
 
               <label>
-                <input type="text" name="source" ref={register} required={true} />
-                <span>Where did you find or hear of this `ism?</span>
-              </label>
-
-              <label>
-                <span>Type & explain your nerdism (or URL to image/meme)</span>
-                <textarea name="text" ref={register} required={true} />
+                <span>Comments / Message</span>
+                <textarea name="message" ref={register} required={true} />
               </label>
 
               <button type="submit">Send Your Comments</button>

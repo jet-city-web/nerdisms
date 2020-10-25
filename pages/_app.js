@@ -2,7 +2,7 @@
 import Link from 'next/link'
 
 import XKCD from '../components/xkcd.js';
-import Contact from '../components/contact.js';
+import Social from '../components/social.js';
 import '../design/design.scss';
 
 function MyApp({ Component, pageProps }) {
@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }) {
       <Component {...pageProps} />
       <footer>
         <XKCD />
-        <Contact />
+        <Social />
       </footer>
     </>
   );

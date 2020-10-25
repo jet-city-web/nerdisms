@@ -1,8 +1,14 @@
 
+body, html {
+  height: 100%;
+}
 body {
     background: lighten($baseDark, 75%);
     color: $baseDark;
+    display:flex;
+    flex-direction: column;
     font-family: $baseFont;
+
     &:after {
         @include shadow-bottom-fuzzy;
     }
@@ -10,10 +16,27 @@ body {
     .amber {
       color: $amberScreen;
     }
+
+    #__next {
+      display:flex;
+      flex-direction:column;
+      flex: 1;
+
+      main {
+        flex: 1;
+        padding: 2em;
+      }
+
+    }
 }
 
-main {
-    padding: 2em;
+
+h1, h2 {
+  margin-bottom: 2rem;
+}
+
+p {
+  margin: 1rem 0;
 }
 
 @include headings();

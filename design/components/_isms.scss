@@ -4,6 +4,13 @@
   flex-wrap: wrap;
   justify-content: space-around;
 
+}
+
+  .preview {
+    width: 350px;
+    margin:auto;
+  }
+
   .ism {
 
     height: 350px;
@@ -89,15 +96,11 @@
 
   }
 
-}
 
 @media (max-width: 959px) {
 
-  .isms {
-     .ism {
-        width: 100%;
-     }
-
+  .ism {
+    width: 100%;
   }
 
 }
