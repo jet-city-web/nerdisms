@@ -71,9 +71,8 @@ export async function read() {
 
 async function create(data) {
   let ism = new Ism(data);
-  // Add to the pending list ...
-  // Send note to the admin
-  sendEmail(process.env.NEXT_PUBLIC_ADMIN_EMAIL, ism.email, 'Nerdisms Submission', ism)
+  // Send an email to the contributor
+  // sendEmail(process.env.NEXT_PUBLIC_ADMIN_EMAIL, ism.email, 'Nerdisms Submission', ism)
   return ism;
 }
 

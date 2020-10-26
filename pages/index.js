@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { read } from './api/isms';
 
-
 import Ism from '../components/ism.js';
 
 export default function Home(props) {

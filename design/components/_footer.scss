@@ -59,7 +59,8 @@
       }
 
       .xkcd {
-        width: 95vw;
+        margin: auto;
+        width: calc(100vw - 4rem);
       }
 
     }

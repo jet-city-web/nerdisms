@@ -3,6 +3,7 @@ body, html {
   height: 100%;
 }
 body {
+
     background: lighten($baseDark, 75%);
     color: $baseDark;
     display:flex;
@@ -37,6 +38,18 @@ h1, h2 {
 
 p {
   margin: 1rem 0;
+}
+
+a {
+  color: darken($greenScreen, 25%);
+  font-weight: 400;
+}
+
+blockquote {
+  color: lighten($baseDark, 15%);
+  margin: 2vw 1vw;
+  border-left: 4px solid silver;
+  padding-left: 1rem;
 }
 
 @include headings();
