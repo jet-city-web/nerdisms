@@ -1,7 +1,10 @@
 import AliceCarousel from 'react-alice-carousel';
+import usePreventScroll from '../hooks/preventScrollOnSwipe.js';
 import Ism from './ism.js';
 
 export default function Isms({ isms }) {
+
+  usePreventScroll();
 
   const responsive = {
     0: {
