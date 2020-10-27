@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { read } from './api/isms';
 
-import Ism from '../components/ism.js';
+import Isms from '../components/isms.js';
 
 export default function Home(props) {
 
@@ -14,11 +14,7 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <section className="isms">
-          {
-            isms.map((ism, idx) => <Ism key={idx} ism={ism} />)
-          }
-        </section>
+        <Isms isms={isms} />
       </main>
     </>
 

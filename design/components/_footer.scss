@@ -1,4 +1,4 @@
-#__next > .footer {
+#__next > footer {
 
     background: $baseLight;
     border-top:1px solid #ccc;
@@ -49,6 +49,10 @@
 
     .xkcd {
       width: 35vw;
+
+      img {
+        max-height: 30vh;
+      }
     }
 
 }
@@ -59,7 +63,7 @@
     flex-direction:column;
 
     > div {
-      margin-bottom: 3rem;
+      margin-bottom: 3rem !important;
     }
 
     .xkcd {

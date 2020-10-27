@@ -1,49 +1,84 @@
 import sendEmail from '../../lib/email.js';
 
-const list = [
-  {
-    text: "!false",
-    contributor: 'baldy',
-    source: 'Code Fellows',
-    upvotes: 5,
-    downvotes: 1,
-  },
-  {
-    text: "fear { display:none; }",
-    contributor: 'baldy',
-    source: 'CSS Puns',
-    upvotes: 23,
-    downvotes: 5,
-  },
-  {
-    text: "['hip','hip']",
-    contributor: 'Nicholas Carignan',
-    source: 'unknown',
-    upvotes: 23,
-    downvotes: 5,
-  },
-  {
-    text: "/* no comment */",
-    contributor: 'Sarah Fisher',
-    source: 'meme',
-    upvotes: 23,
-    downvotes: 5,
-  },
-  {
-    text: "this one is like really long and not very funny, but we'll see, I guess",
-    contributor: 'baldy',
-    source: 'CSS Puns',
-    upvotes: 23,
-    downvotes: 5,
-  },
-  {
-    text: "white space matters",
-    contributor: 'baldy',
-    source: 'CSS Puns',
-    upvotes: 23,
-    downvotes: 5,
-  },
-];
+const list = {
+  "Devs": [
+    {
+      text: "!false",
+      contributor: 'baldy',
+      source: 'Code Fellows',
+      upvotes: 5,
+      downvotes: 1,
+    },
+    {
+      text: "fear { display:none; }",
+      contributor: 'baldy',
+      source: 'CSS Puns',
+      upvotes: 23,
+      downvotes: 5,
+    },
+    {
+      text: "['hip','hip']",
+      contributor: 'Nicholas Carignan',
+      source: 'unknown',
+      upvotes: 23,
+      downvotes: 5,
+    },
+    {
+      text: "/* no comment */",
+      contributor: 'Sarah Fisher',
+      source: 'meme',
+      upvotes: 23,
+      downvotes: 5,
+    },
+    {
+      text: "white space matters",
+      contributor: 'baldy',
+      source: 'CSS Puns',
+      upvotes: 23,
+      downvotes: 5,
+    }
+  ],
+  // https://www.pinterest.com/teebanger0132/gamers-sayings/
+  "Gamers": [
+    {
+      text: "I wouldn't say video games have made me violent, but I feel like I'm supposed to pick this up (pipe pic)",
+      contributor: 'baldy',
+      source: 'CSS Puns',
+      upvotes: 23,
+      downvotes: 5,
+    },
+    {
+      text: "Gamers don't die, we respawn",
+      contributor: 'baldy',
+      source: 'CSS Puns',
+      upvotes: 23,
+      downvotes: 5,
+    },
+  ],
+  "Mathletes": [
+    {
+      text: "Happy Pi Day",
+      contributor: 'baldy',
+      source: 'CSS Puns',
+      upvotes: 23,
+      downvotes: 5,
+    },
+    {
+      text: "5/4 be with you",
+      contributor: 'baldy',
+      source: 'CSS Puns',
+      upvotes: 23,
+      downvotes: 5,
+    },
+    {
+      text: "Merry Halloween",
+      contributor: 'baldy',
+      source: 'CSS Puns',
+      upvotes: 23,
+      downvotes: 5,
+    },
+  ]
+};
 
 export default async function handler(req, res) {
 

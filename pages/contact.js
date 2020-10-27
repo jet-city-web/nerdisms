@@ -27,7 +27,11 @@ export default function Contact() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>Nerdisms: Contact Us</h1>
+
+        <header>
+          <img className="page-header-baldy" src="/assets/baldy-sm-glasses.png" />
+          <h1>Nerdisms: Contact Us</h1>
+        </header>
 
         <If condition={!!message}>
           <Then>

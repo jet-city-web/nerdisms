@@ -29,7 +29,11 @@ export default function Contact() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>Nerdisms: Add your 'ism here...</h1>
+
+        <header>
+          <img className="page-header-baldy" src="/assets/baldy-sm-glasses.png" />
+          <h1>Nerdisms: Add your 'ism here...</h1>
+        </header>
 
         <p>
           Got a great inside joke, meme, or something only other nerds will find funny? Send it in, and we'll evaluate it for possible addition to the Nerdisms gallery. If you provide it, we'll add attribution, and if it gets enough votes, it might even make a t-shirt! Note that every `ism submitted must be free for both commercial and non-commercial use. If it's not open sourced, or you don't have a license to share it, please don't.

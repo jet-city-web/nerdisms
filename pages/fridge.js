@@ -9,7 +9,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h2>Fridge Magnets</h2>
+
+        <header>
+          <img className="page-header-baldy" src="/assets/baldy-sm-eyes-up.png" />
+          <h1>Fridge Magnets</h1>
+        </header>
+
       </main>
     </>
 

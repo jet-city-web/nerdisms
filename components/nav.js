@@ -40,12 +40,13 @@ function Mobile() {
   return (
     <nav>
       <span className="amber">$</span>
+      <label htmlFor="toggle">nerdisms</label>
       <ul>
-        <li><Link href="/add">add</Link></li>
-        <li><Link href="/fridge">fridge</Link></li>
-        <li><Link href="/friends">friends</Link></li>
-        <li><Link href="/gear">store</Link></li>
+        <li><Link href="/add">--add</Link></li>
+        <li><Link href="/friends">--friends</Link></li>
+        <li><Link href="/gear">--store</Link></li>
       </ul>
+      <span className="blink">_</span>
     </nav>
   );
 }
