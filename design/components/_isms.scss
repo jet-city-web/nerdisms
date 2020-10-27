@@ -1,8 +1,6 @@
 // May not be needed with the carousel ...
 .isms {
-
   margin: 1rem 2rem;
-
 }
 
 .preview {
@@ -141,10 +139,27 @@
 }
 
 
-@media (max-width: 760) {
+@media screen and (max-width: 760px) {
+
+  body {
+    #__next {
+      main {
+        padding: 2rem 1rem;
+      }
+    }
+  }
+
+  .isms {
+    margin: 1rem 0;
+  }
 
   .ism {
     width: 100%;
+  }
+
+  .alice-carousel__next-btn,
+  .alice-carousel__prev-btn {
+    display:none;
   }
 
 }
