@@ -25,7 +25,7 @@ nav {
     #toggle { display:none; }
 
     span {
-      padding: 0 .2em;
+      padding: 0 .5em;
     }
 
     ul {
@@ -33,7 +33,7 @@ nav {
         flex-direction:row;
 
         li {
-            padding:0 .5em;
+            padding:0 .3em;
             position:relative;
         }
 
@@ -59,4 +59,15 @@ nav {
             top:0;
         }
     }
+}
+
+
+@media screen and (max-width: 375px) {
+
+  nav {
+    span {
+      // padding: 0 .1em;
+    }
+  }
+
 }
