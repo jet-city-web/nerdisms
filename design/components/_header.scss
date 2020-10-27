@@ -5,5 +5,13 @@
     padding-top: .5rem;
     text-align:center;
     width:100%;
+
+    figure {
+      padding: 1em 3em;
+
+      img {
+        max-width: 70%;
+      }
+    }
 }
 

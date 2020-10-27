@@ -1,4 +1,4 @@
-#__next > footer {
+#__next > .footer {
 
     background: $baseLight;
     border-top:1px solid #ccc;
@@ -10,6 +10,10 @@
 
     h2 {
       margin-bottom: .5rem;
+    }
+
+    div {
+      display:block;
     }
 
     .social {
@@ -49,20 +53,29 @@
 
 }
 
-    @media (max-width: 959px) {
+ @media (max-width: 959px) {
 
-      #__next > footer {
-      flex-direction:column;
+  #__next > footer {
+    flex-direction:column;
 
-      > div {
-        margin-bottom: 3rem;
-      }
-
-      .xkcd {
-        margin: auto;
-        width: calc(100vw - 4rem);
-      }
-
+    > div {
+      margin-bottom: 3rem;
     }
 
+    .xkcd {
+      margin: auto;
+      width: calc(100vw - 4rem);
     }
+
+  }
+
+}
+
+
+// MODAL
+
+.react-responsive-modal-closeButton {
+  background: red;
+  top:0;
+  right:0;
+}

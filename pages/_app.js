@@ -4,6 +4,8 @@
 import XKCD from '../components/xkcd.js';
 import Social from '../components/social.js';
 import Header from '../components/header.js';
+
+import 'react-responsive-modal/styles.css';
 import '../design/design.scss';
 
 function MyApp({ Component, pageProps }) {
@@ -11,10 +13,10 @@ function MyApp({ Component, pageProps }) {
     <>
       <Header />
       <Component {...pageProps} />
-      <footer>
+      <div className="footer">
         <XKCD />
         <Social />
-      </footer>
+      </div>
     </>
   );
 }

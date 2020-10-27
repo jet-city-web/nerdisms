@@ -4,6 +4,11 @@
   flex-wrap: wrap;
   justify-content: space-around;
 
+  &:before, &:after {
+    content:'';
+    display:none;
+  }
+
 }
 
   .preview {
@@ -53,6 +58,7 @@
 
       .content {
         align-items: center;
+        color:$baseDark;
         display:flex;
         flex: 1;
         font-family: $monoFont;
