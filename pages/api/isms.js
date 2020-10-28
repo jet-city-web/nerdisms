@@ -10,7 +10,7 @@ const list = {
       downvotes: 1,
     },
     {
-      text: "fear { display:none; }",
+      text: "fear {\n  display:none;\n}",
       contributor: 'baldy',
       source: 'CSS Puns',
       upvotes: 23,
@@ -31,7 +31,7 @@ const list = {
       downvotes: 5,
     },
     {
-      text: "white space matters",
+      text: "white\n  space\n    matters",
       contributor: 'baldy',
       source: 'CSS Puns',
       upvotes: 23,

@@ -1,0 +1,28 @@
+// Simple flexbox grid of evenly spaced boxes
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  aside {
+    @include box-inner-glow;
+
+    background: $baseLight;
+    border-radius: 5px;
+    color: lighten($baseDark, 15%);
+    margin: 2vw;
+    padding: 2vw;
+    width: 350px;
+    position: relative;
+
+    a:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+  }
+}

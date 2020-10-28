@@ -1,15 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Dosis&display=swap");
 
-@import './theme/variables';
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 
-@import './utilities/reset';
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap");
 
-@import './mixins/all';
+@import "./theme/variables";
 
-@import './components/app',
-        './components/header',
-        './components/footer',
-        './components/navbar',
-        './components/forms',
-        './components/isms';
+@import "./utilities/reset";
+
+@import "./mixins/all";
+
+@import "./components/app";
+@import "./components/header";
+@import "./components/footer";
+@import "./components/navbar";
+@import "./components/forms";
+@import "./components/grid";
+@import "./components/isms";

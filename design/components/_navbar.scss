@@ -8,66 +8,69 @@
   }
 }
 
-nav {
-    background:#000;
+header {
+  nav {
+    background: #000;
     color: $greenScreen;
-    display:flex;
+    display: flex;
     font-family: $monoFont;
     font-size: 1.1rem;
     font-weight: bold;
-    height:2em;
+    height: 2em;
     letter-spacing: .1rem;
-    line-height:2em;
+    line-height: 2em;
     padding: 0 1rem;
     width: 100%;
 
     // Hidden checkbox
-    #toggle { display:none; }
+    #toggle {
+      display: none;
+    }
 
     span {
       padding: 0 .5em;
     }
 
     ul {
-        display:flex;
-        flex-direction:row;
+      display: flex;
+      flex-direction: row;
 
-        li {
-            padding:0 .3em;
-            position:relative;
+      li {
+        padding: 0 .3em;
+        position: relative;
+      }
+
+      li:hover {
+        background: #ccc;
+
+        a {
+          color: #000;
         }
-
-        li:hover {
-           background:#ccc;
-
-           a {
-               color: #000;
-           }
-        }
+      }
     }
 
     a {
-        text-decoration:none;
-        color:$greenScreen;
+      text-decoration: none;
+      color: $greenScreen;
 
-        &:after {
-            bottom:0;
-            content:"";
-            left:0;
-            position:absolute;
-            right:0;
-            top:0;
-        }
-    }
-}
-
-
-@media screen and (max-width: 375px) {
-
-  nav {
-    span {
-      padding: 0 .2em;
+      &:after {
+        bottom: 0;
+        content: "";
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
     }
   }
+}
 
+@media screen and (max-width: 375px) {
+  header {
+    nav {
+      span {
+        padding: 0 .2em;
+      }
+    }
+  }
 }

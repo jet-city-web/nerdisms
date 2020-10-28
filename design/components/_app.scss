@@ -8,63 +8,72 @@ html {
 }
 
 body {
+  background: lighten($baseDark, 10%);
+  color: $baseLight;
+  display: flex;
+  flex-direction: column;
+  font-family: $baseFont;
 
-    background: $baseDark; // lighten($baseDark, 75%);
-    color: $baseLight;
-    display:flex;
+  code, pre {
+    font-family: $fixedFont;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+  }
+
+  &:after {
+    @include shadow-bottom-fuzzy;
+  }
+
+  .amber {
+    color: $amberScreen;
+  }
+
+  #__next {
+    display: flex;
     flex-direction: column;
-    font-family: $baseFont;
+    flex: 1;
 
-
-    &:after {
-        @include shadow-bottom-fuzzy;
-    }
-
-    .amber {
-      color: $amberScreen;
-    }
-
-    #__next {
-      display:flex;
-      flex-direction:column;
+    main {
       flex: 1;
-
-      main {
-        flex: 1;
-        padding: 2em;
-      }
-
+      padding: 2em;
     }
+  }
 }
 
 main {
-
-  position:relative;
+  position: relative;
+  max-width: 1200px;
+  margin: auto;
+  width: 100%;
 
   &:after {
-    content:'';
-    background-image: url('/assets/baldy-lg-eyes-sideways.png');
+    content: '';
+    background-image: url("/assets/baldy-lg-eyes-sideways.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center center;
-    bottom:0;
-    left:0;
+    bottom: 0;
+    left: 0;
     opacity: .1;
-    position:fixed;
-    right:0;
-    top:0;
-    z-index:-1;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: -1;
   }
 
   header {
-    display:flex;
+    display: flex;
     align-items: center;
     margin-bottom: 2rem;
 
     .page-header-baldy {
       background: $baseLight;
       border-radius: 50%;
-      height: 4rem;
+      height: 6vw;
       margin-right: 1rem;
       padding: .2em;
     }
@@ -72,12 +81,9 @@ main {
 
   footer {
     margin-top: 2rem;
-    text-align:center;
+    text-align: center;
   }
-
-
 }
-
 
 h2 {
   margin-bottom: 2rem;
@@ -92,37 +98,4 @@ a {
   font-weight: 400;
 }
 
-blockquote {
-  color: lighten($baseDark, 15%);
-  margin: 2vw 1vw;
-  border-left: 4px solid silver;
-  padding-left: 1rem;
-}
-
-aside {
-  @include box-inner-glow;
-  background: $baseLight;
-  border-radius: 5px;
-  color: lighten($baseDark, 15%);
-  margin: 2vw;
-  padding: 2vw;
-  width: 350px;
-  position:relative;
-
-  a:after {
-    content: '';
-    position:absolute;
-    top:0;
-    left:0;
-    bottom:0;
-    right: 0;
-  }
-}
-
-.grid {
-  display:flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-@include headings();
+@include headings;

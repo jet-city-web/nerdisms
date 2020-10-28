@@ -32,11 +32,11 @@ export default function Contact() {
 
         <header>
           <img className="page-header-baldy" src="/assets/baldy-sm-glasses.png" />
-          <h1>Nerdisms: Add your 'ism here...</h1>
+          <h1>Nerdisms: Add an 'ism...</h1>
         </header>
 
         <p>
-          Got a great inside joke, meme, or something only other nerds will find funny? Send it in, and we'll evaluate it for possible addition to the Nerdisms gallery. If you provide it, we'll add attribution, and if it gets enough votes, it might even make a t-shirt! Note that every `ism submitted must be free for both commercial and non-commercial use. If it's not open sourced, or you don't have a license to share it, please don't.
+          Got a great inside joke, meme, or something only other nerds will find funny? Send it in, and we'll evaluate it for possible addition to the Nerdisms gallery and possibly the merch!
         </p>
 
         <If condition={ism}>
@@ -82,6 +82,9 @@ export default function Contact() {
 
             </form>
 
+            <p>
+              <small><em>Note: every `ism submitted must be free for both commercial and non-commercial use. If it's not open sourced, or you don't have a license to share it, please don't.</em></small>
+            </p>
 
           </Else>
         </If>

@@ -1,53 +1,79 @@
-import AliceCarousel from 'react-alice-carousel';
-import usePreventScroll from '../hooks/preventScrollOnSwipe.js';
+import { useEffect, useState } from 'react';
+import { Switch, Case, Default } from 'react-if';
+
 import Ism from './ism.js';
+import Swipable from './isms-swipeable.js';
+import Masonry from './isms-masonry.js';
+
+import useWindowSize from '../hooks/windowSize.js';
 
 export default function Isms({ isms }) {
 
-  usePreventScroll();
+  const size = useWindowSize();
+  const [category, setCategory] = useState('all');
+  const [cards, setCards] = useState([]);
+  const [allCards, setAllCards] = useState({});
 
-  const responsive = {
-    0: {
-      items: 1
-    },
-    720: {
-      items: 2
-    },
-    1100: {
-      items: 3
-    },
-    1448: {
-      items: 4
-    },
-    1900: {
-      items: 5
-    },
-    2300: {
-      items: 6
-    }
-  };
+  const changeCategory = (cat) => {
+    setCategory(cat);
+    setCards(allCards[cat]);
+  }
 
-  const categories = Object.keys(isms).reduce((cats, category) => {
-    const items = isms[category].map(ism => <Ism key={Math.random()} ism={ism} />)
-    const section = (
-      <section className="isms" key={Math.random()}>
-        <h2>{category}</h2>
-        <AliceCarousel
-          disableDotsControls={true}
-          autowidth
-          mouseTracking
-          infinite
-          paddingLeft={30}
-          paddingRight={30}
-          responsive={responsive}
-          items={items}
-        />
-      </section>
-    );
-    cats.push(section);
-    return cats;
+  useEffect(() => {
+
+    let all = [];
+    const list = Object.keys(isms).reduce((items, itemCategory) => {
+      items[itemCategory] = isms[itemCategory].map(ism => <Ism key={Math.random()} ism={ism} />);
+      all = all.concat(items[itemCategory]);
+      return items
+    }, []);
+
+    list['all'] = all;
+    setAllCards(list);
+
   }, []);
 
-  return categories;
+  useEffect(() => {
+    changeCategory('all');
+  }, [allCards])
+
+  // Server should draw Masonry by default, and then adjust for phones. Might be an FOUC to start with
+  // But probably less jarring on the user.
+  // Alternatively, we can show nothing, then pop it in, but we want that SEO benefit.
+  return (
+    <>
+      <nav className="isms-filter">
+
+        <button
+          className={!!category ? '' : 'active'}
+          onClick={() => changeCategory(null)}
+          key={Math.random()}
+        >All</button>
+
+        {
+          Object.keys(isms).map((cat) =>
+            <button
+              className={cat === category ? 'active' : ''}
+              onClick={() => changeCategory(cat)}
+              key={Math.random()}
+            >{cat}</button>
+          )
+        }
+
+      </nav>
+
+      <Switch>
+        <Case condition={size.width < 768}>
+          <Swipable cards={cards} category={category} />
+        </Case>
+        <Case condition={size.width >= 768}>
+          <Masonry cards={cards} category={category} />
+        </Case>
+        <Default>
+          <p>Isms on the way</p>
+        </Default>
+      </Switch>
+    </>
+  );
 
 }

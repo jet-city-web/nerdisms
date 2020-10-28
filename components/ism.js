@@ -2,11 +2,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
 
 export default function Ism({ ism }) {
+
+  const ab = () => Math.floor(Math.random() * 2);
+  const placement = ab() ? 'inside' : 'outside';
+  const color = ab() ? 'green' : 'grey';
+
   return (
     <div className="ism">
-      <div className="front inside">
+      <div className={`front ${placement} ${color}`}>
         <div className="content">
-          <span>{ism.text}</span>
+          <span><pre>{ism.text}</pre></span>
         </div>
         <footer>
           <FontAwesomeIcon icon={faHeart} className="icon upvote" />

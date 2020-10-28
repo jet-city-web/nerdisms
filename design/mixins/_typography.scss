@@ -1,8 +1,20 @@
-$hbase:3em;
-@mixin headings($from: 1, $to: 6){
-    @for $i from $from through $to{
-      h#{$i}{
-        font-size:calc( #{$hbase} * ( 1 - (#{$i} * .2 ) ) );
+$hbase: 4rem;
+$mbase: 8vw;
+
+// On desktop, headings are REM based, so the sizes are fixed
+@mixin headings($from: 1, $to: 6) {
+  @for $i from $from through $to {
+    h#{$i} {
+      font-size: calc( #{$hbase} * ( 1 - (#{$i} * .2 ) ) );
+    }
+  }
+
+  // For mobile, we use vw's so that the heading scale
+  @media (max-width: 768px) {
+    @for $i from $from through $to {
+      h#{$i} {
+        font-size: calc( #{$mbase} * ( 1 - (#{$i} * .2 ) ) );
       }
     }
+  }
 }
