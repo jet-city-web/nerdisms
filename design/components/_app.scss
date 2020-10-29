@@ -65,7 +65,7 @@ main {
     z-index: -1;
   }
 
-  header {
+  > header {
     display: flex;
     align-items: center;
     margin-bottom: 2rem;
@@ -79,7 +79,7 @@ main {
     }
   }
 
-  footer {
+  > footer {
     margin-top: 2rem;
     text-align: center;
   }

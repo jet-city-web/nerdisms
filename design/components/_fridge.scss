@@ -1,0 +1,23 @@
+#fridge {
+  @include box-lift;
+
+  background: #efefef;
+  border: 1px solid #ccc;
+  height: 600px;
+  margin: auto;
+  position: relative;
+  width: 1100px;
+
+  .magnet {
+    background: #fff;
+    border: 1px ridge #ccc;
+    color: $baseDark;
+    cursor: move;
+    font-family: $fixedFont;
+    font-size: .6rem;
+    font-weight: bold;
+    user-select: none;
+    padding: .1rem 0.25rem;
+    position: absolute;
+  }
+}
