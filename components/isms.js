@@ -45,8 +45,8 @@ export default function Isms({ isms }) {
       <nav className="isms-filter">
 
         <button
-          className={!!category ? '' : 'active'}
-          onClick={() => changeCategory(null)}
+          className={category === "all" ? 'active' : ''}
+          onClick={() => changeCategory('all')}
           key={Math.random()}
         >All</button>
 
