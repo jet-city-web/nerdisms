@@ -140,8 +140,8 @@ export default function Fridge({ words }) {
     const allMagnets = document.getElementsByClassName('magnet');
     const magnetElement = document.getElementById(id)
 
-    // Has it already been positioned?
-    if (magnet.top || magnet.left) { return; }
+    // Has it already been positioned? If so, we leave it where it is
+    if (magnet.top && magnet.left) { return; }
 
     let rendered = false;
 
@@ -195,6 +195,7 @@ export default function Fridge({ words }) {
 
 
   // Set the dimensions and drop the magnets on the board
+  // This happens on page render and puts the magnets wherever the DB says they are
   useEffect(() => {
     const fridge = document.getElementById('fridge');
     setFridgeTop(fridge.getBoundingClientRect().top + window.scrollY);
@@ -204,18 +205,19 @@ export default function Fridge({ words }) {
     placeWords();
   }, [])
 
-  useEffect(() => {
-    socket.on('placed', itGotMoved);
-    socket.on('moving', iAmMmoving);
-  }, [])
-
-  // Randomize any magnets without a position
+  // After the initial positioning (above), we now randomize any magnets without a position
   useEffect(() => {
     if (loaded) {
       // Words is a map, where the id is the DB ID, and the value is each word's object
       Object.keys(words).forEach(id => positionMagnet(words[id]));
     }
   }, [loaded])
+
+  useEffect(() => {
+    socket.on('placed', itGotMoved);
+    socket.on('moving', iAmMmoving);
+  }, [])
+
 
 
   return (
