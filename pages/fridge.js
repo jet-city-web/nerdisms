@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head'
 import io from 'socket.io-client';
+import throttle from 'lodash.throttle';
+
 import { read, update } from './api/magnets.js';
 
-console.log('connecting');
 const socket = io.connect(`${process.env.NEXT_PUBLIC_API}/magnets`);
 
 export default function Fridge({ words }) {
@@ -17,24 +18,46 @@ export default function Fridge({ words }) {
   const [loaded, setLoaded] = useState(false);
 
   const itGotMoved = (magnet) => {
-    words.forEach((word, i) => {
-      if (word._id === magnet._id) {
-        // Set it
-        console.log(words[i]);
-        words[i].top = magnet.top;
-        words[i].left = magnet.left;
-        // Show it
-        let movedMagnet = document.getElementById(magnet._id);
-        movedMagnet.classList.remove('dropped');
-        movedMagnet.style.top = magnet.top;
-        movedMagnet.style.left = magnet.left;
-        movedMagnet.classList.add('dropped');
-      }
-    })
+
+    const id = magnet._id;
+
+    // Set it
+    words[id].top = magnet.top;
+    words[id].left = magnet.left;
+
+    // Show it
+    let movedMagnet = document.getElementById(id);
+    movedMagnet.classList.remove('dropped');
+    movedMagnet.classList.remove('moving');
+    movedMagnet.style.top = magnet.top;
+    movedMagnet.style.left = magnet.left;
+    movedMagnet.classList.add('dropped');
+
   }
 
+  const iAmMmoving = (magnet) => {
+
+    const id = magnet.id;
+
+    console.log(id, words[id]);
+
+    // Set it
+    words[id].top = magnet.top;
+    words[id].left = magnet.left;
+
+    // Show it
+    let movedMagnet = document.getElementById(id);
+    movedMagnet.classList.add('moving');
+    movedMagnet.style.top = magnet.top;
+    movedMagnet.style.left = magnet.left;
+
+  }
+
+  const throttledMove = throttle((magnet) => {
+    socket.emit('moving', magnet)
+  }, 250);
+
   const grabIt = (e) => {
-    // console.log(fridgeHeight, fridgeWidth);
     e.target.classList.remove('dropped');
     setCurrentMagnet(e.target);
     e.preventDefault();
@@ -56,12 +79,18 @@ export default function Fridge({ words }) {
     if (left <= 0) { left = 0 };
     if (right > fridgeWidth) { left = fridgeWidth - currentMagnet.offsetWidth; }
 
-
-    // Visually move it
+    // Visually move it on our screen
     currentMagnet.style.top = `${top}px`;
     currentMagnet.style.left = `${left}px`;
 
-    const magnet = currentMagnet;
+    // Visually move it on everyone else's screen
+    const magnet = {
+      id: currentMagnet.getAttribute('id'),
+      top: `${top}px`,
+      left: `${left}px`
+    }
+    throttledMove(magnet);
+
   }
 
   const dropIt = async (e) => {
@@ -71,25 +100,19 @@ export default function Fridge({ words }) {
 
     currentMagnet.classList.add('dropped');
     const id = currentMagnet.getAttribute('id');
-    let magnet = undefined;
 
-    words.forEach((word, i) => {
-      if (word._id === id) {
-        words[i].top = currentMagnet.style.top;
-        words[i].left = currentMagnet.style.left;
-        magnet = words[i];
-      }
-    })
+    words[id].top = currentMagnet.style.top;
+    words[id].left = currentMagnet.style.left;
 
-    await update(magnet);
-    socket.emit('move', magnet)
+    await update(words[id]);
+    socket.emit('placed', words[id])
 
     setCurrentMagnet(null);
   }
 
   const placeWords = () => {
-    // const wordElements = Object.keys(words).map(word => addMagnet(word));
-    const wordElements = words.map(word => addMagnet(word));
+    const wordElements = Object.keys(words).map(id => addMagnet(words[id]));
+    // const wordElements = words.map(word => addMagnet(word));
     setMagnets(wordElements);
     setLoaded(true);
   }
@@ -144,6 +167,9 @@ export default function Fridge({ words }) {
       if (++tries === 10) { rendered = true; }
     }
 
+    update(magnet);
+    console.log('randomly placed', magnet);
+
   }
 
   const collisionBetween = (element1, element2) => {
@@ -179,13 +205,15 @@ export default function Fridge({ words }) {
   }, [])
 
   useEffect(() => {
-    socket.on('move', itGotMoved);
+    socket.on('placed', itGotMoved);
+    socket.on('moving', iAmMmoving);
   }, [])
 
   // Randomize any magnets without a position
   useEffect(() => {
     if (loaded) {
-      words.forEach(word => positionMagnet(word));
+      // Words is a map, where the id is the DB ID, and the value is each word's object
+      Object.keys(words).forEach(id => positionMagnet(words[id]));
     }
   }, [loaded])
 

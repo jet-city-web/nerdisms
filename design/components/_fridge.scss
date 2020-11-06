@@ -30,6 +30,10 @@
     padding: .1rem 0.25rem;
     position: absolute;
 
+    &.moving {
+      background-color: $amberScreen;
+    }
+
     &.dropped {
       animation: pulse 1s ease-out 1;
 

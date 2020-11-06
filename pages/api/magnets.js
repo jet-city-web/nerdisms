@@ -22,14 +22,18 @@ export default async function handler(req, res) {
 
 export async function read() {
   const response = await axios.get(`${process.env.NEXT_PUBLIC_API}/api/v1/magnets`);
-  return response?.data?.results || [];
+  const list = response?.data?.results || [];
+  const words = list.reduce((map, word) => {
+    map[word._id] = word;
+    return map;
+  }, {})
+  return words;
 }
 
 export async function update(magnet) {
   try {
     const url = `${process.env.NEXT_PUBLIC_API}/api/v1/magnets/${magnet._id}`
     const response = await axios.put(url, magnet);
-    console.log(url, magnet, response.data);
     return response?.data;
   } catch (e) {
     return "Unable to move magnet";
