@@ -208,6 +208,7 @@ export default function Fridge({ words }) {
   // After the initial positioning (above), we now randomize any magnets without a position
   useEffect(() => {
     if (loaded) {
+      console.log(words);
       // Words is a map, where the id is the DB ID, and the value is each word's object
       Object.keys(words).forEach(id => positionMagnet(words[id]));
     }
