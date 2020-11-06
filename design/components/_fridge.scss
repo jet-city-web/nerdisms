@@ -29,5 +29,34 @@
     user-select: none;
     padding: .1rem 0.25rem;
     position: absolute;
+
+    &.dropped {
+      background-color: #fff;
+      animation-name: color;
+      animation-duration: 1s;
+      animation-iteration-count: 1;
+
+      @keyframes color {
+        0% {
+          background-color: $amberScreen;
+          color: $baseLight;
+        }
+
+        50% {
+          background-color: $greenScreen;
+          color: $baseLight;
+        }
+
+        75% {
+          background-color: $amberScreen;
+          color: $baseLight;
+        }
+
+        100% {
+          background-color: $greenScreen;
+          color: $baseLight;
+        }
+      }
+    }
   }
 }

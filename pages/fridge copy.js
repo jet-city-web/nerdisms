@@ -17,25 +17,11 @@ export default function Fridge({ words }) {
   const [loaded, setLoaded] = useState(false);
 
   const itGotMoved = (magnet) => {
-    words.forEach((word, i) => {
-      if (word._id === magnet._id) {
-        // Set it
-        console.log(words[i]);
-        words[i].top = magnet.top;
-        words[i].left = magnet.left;
-        // Show it
-        let movedMagnet = document.getElementById(magnet._id);
-        movedMagnet.classList.remove('dropped');
-        movedMagnet.style.top = magnet.top;
-        movedMagnet.style.left = magnet.left;
-        movedMagnet.classList.add('dropped');
-      }
-    })
+    console.log('somebody moved', magnet)
   }
 
   const grabIt = (e) => {
     // console.log(fridgeHeight, fridgeWidth);
-    e.target.classList.remove('dropped');
     setCurrentMagnet(e.target);
     e.preventDefault();
   }
@@ -66,20 +52,17 @@ export default function Fridge({ words }) {
 
   const dropIt = async (e) => {
     e.preventDefault();
-
     if (!currentMagnet) { return; }
-
-    currentMagnet.classList.add('dropped');
     const id = currentMagnet.getAttribute('id');
-    let magnet = undefined;
+    words[id].top = currentMagnet.style.top;
+    words[id].left = currentMagnet.style.left;
 
-    words.forEach((word, i) => {
-      if (word._id === id) {
-        words[i].top = currentMagnet.style.top;
-        words[i].left = currentMagnet.style.left;
-        magnet = words[i];
-      }
-    })
+    const magnet = {
+      id: words[id]._id,
+      word: words[id].word,
+      left: words[id].left,
+      top: words[id].top,
+    }
 
     await update(magnet);
     socket.emit('move', magnet)
@@ -88,31 +71,27 @@ export default function Fridge({ words }) {
   }
 
   const placeWords = () => {
-    // const wordElements = Object.keys(words).map(word => addMagnet(word));
-    const wordElements = words.map(word => addMagnet(word));
+    const wordElements = Object.keys(words).map(word => addMagnet(word));
     setMagnets(wordElements);
     setLoaded(true);
   }
 
-  const addMagnet = (word) => {
+  const addMagnet = (id) => {
     // positionMagnet(magnet);
-    const id = word._id;
     return (
       <span
         key={id}
         id={id}
         className="magnet"
         onMouseDown={grabIt}
-        style={{ top: word.top, left: word.left }}
+        style={{ top: words[id].top, left: words[id].left }}
       >
-        {word.word}
+        {words[id].word}
       </span>
     )
   }
 
-  const positionMagnet = (magnet) => {
-
-    const id = magnet._id;
+  const positionMagnet = (id, magnet) => {
 
     const allMagnets = document.getElementsByClassName('magnet');
     const magnetElement = document.getElementById(id)
@@ -185,7 +164,7 @@ export default function Fridge({ words }) {
   // Randomize any magnets without a position
   useEffect(() => {
     if (loaded) {
-      words.forEach(word => positionMagnet(word));
+      Object.keys(words).forEach(id => positionMagnet(id, words[id]))
     }
   }, [loaded])
 

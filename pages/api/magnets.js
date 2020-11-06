@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 export default async function handler(req, res) {
 
   const { method } = req;
@@ -19,12 +21,24 @@ export default async function handler(req, res) {
 }
 
 export async function read() {
-  // Needs to be from a db
-  const words = require('./words.json');
-  return words;
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API}/api/v1/magnets`);
+  return response?.data?.results || [];
 }
+
+export async function update(magnet) {
+  try {
+    const url = `${process.env.NEXT_PUBLIC_API}/api/v1/magnets/${magnet._id}`
+    const response = await axios.put(url, magnet);
+    console.log(url, magnet, response.data);
+    return response?.data;
+  } catch (e) {
+    return "Unable to move magnet";
+  }
+}
+
 
 
 function save() {
 
 }
+

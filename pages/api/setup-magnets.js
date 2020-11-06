@@ -1,4 +1,5 @@
 const fs = require('fs');
+const axios = require('axios');
 
 const code = [
   "if",
@@ -190,13 +191,7 @@ const words = [
 const objects = {};
 let id = 1;
 
-function add(item) {
-  objects[++id] = {
-    word: item,
-    x: undefined,
-    y: undefined,
-  }
-}
+
 
 code.forEach(item => {
   for (let x = 1; x <= 2; x++) { add(item) }
@@ -214,6 +209,20 @@ words.forEach(item => {
   add(item);
 })
 
-fs.writeFile('./words.json', Buffer.from(JSON.stringify(objects)), (err, data) => {
-  console.log('done');
-});
+async function add(item) {
+
+  let word = {
+    word: item,
+    x: undefined,
+    y: undefined,
+  }
+
+  const response = await axios.post('http://localhost:4000/api/v1/magnets', word);
+  console.log(response.data);
+
+  objects[++id] = word;
+}
+
+// fs.writeFile('./words.json', Buffer.from(JSON.stringify(objects)), (err, data) => {
+//   console.log('done');
+// });
