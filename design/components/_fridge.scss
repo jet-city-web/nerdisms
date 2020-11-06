@@ -22,7 +22,7 @@
     background: #fff;
     border: 1px ridge #ccc;
     color: $baseDark;
-    cursor: move;
+    cursor: grab;
     font-family: $fixedFont;
     font-size: .75rem;
     font-weight: bold;
@@ -31,30 +31,11 @@
     position: absolute;
 
     &.dropped {
-      background-color: #fff;
-      animation-name: color;
-      animation-duration: 1s;
-      animation-iteration-count: 1;
+      animation: pulse 1s ease-out 1;
 
-      @keyframes color {
-        0% {
-          background-color: $amberScreen;
-          color: $baseLight;
-        }
-
+      @keyframes pulse {
         50% {
           background-color: $greenScreen;
-          color: $baseLight;
-        }
-
-        75% {
-          background-color: $amberScreen;
-          color: $baseLight;
-        }
-
-        100% {
-          background-color: $greenScreen;
-          color: $baseLight;
         }
       }
     }
