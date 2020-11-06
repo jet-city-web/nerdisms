@@ -4,6 +4,7 @@ import { Switch, Case, Default } from 'react-if';
 import Ism from './ism.js';
 import Swipable from './isms-swipeable.js';
 import Masonry from './isms-masonry.js';
+import Raw from './isms-raw.js';
 
 import useWindowSize from '../hooks/windowSize.js';
 
@@ -37,9 +38,6 @@ export default function Isms({ isms }) {
     changeCategory('all');
   }, [allCards])
 
-  // Server should draw Masonry by default, and then adjust for phones. Might be an FOUC to start with
-  // But probably less jarring on the user.
-  // Alternatively, we can show nothing, then pop it in, but we want that SEO benefit.
   return (
     <>
       <nav className="isms-filter">
@@ -70,7 +68,7 @@ export default function Isms({ isms }) {
           <Masonry cards={cards} category={category} />
         </Case>
         <Default>
-          <p>Isms on the way</p>
+          <Raw cards={cards} category={category} />
         </Default>
       </Switch>
     </>
