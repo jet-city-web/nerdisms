@@ -20,11 +20,12 @@
 
   .magnet {
     background: #fff;
-    border: 1px ridge #ccc;
-    color: $baseDark;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: darkgreen;
     cursor: grab;
     font-family: $fixedFont;
-    font-size: .75rem;
+    font-size: .85rem;
     font-weight: bold;
     user-select: none;
     padding: .1rem 0.25rem;

@@ -114,7 +114,6 @@ export default function Fridge() {
 
   const placeWords = () => {
     const wordElements = Object.keys(words).map(id => addMagnet(words[id]));
-    // const wordElements = words.map(word => addMagnet(word));
     setMagnets(wordElements);
     setPositioned(true);
   }
@@ -264,8 +263,3 @@ export default function Fridge() {
 
   )
 }
-
-// export async function getStaticProps() {
-//   const words = await read();
-//   return { props: { words } };
-// }
