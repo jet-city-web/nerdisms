@@ -18,10 +18,13 @@ export default function Fridge() {
   const [loaded, setLoaded] = useState(false);
   const [positioned, setPositioned] = useState(false);
   const [words, setWords] = useState([]);
+  const [dragging, setDragging] = useState(false);
 
   const itGotMoved = (magnet) => {
 
     const id = magnet._id;
+
+    if (!words[id]) { return; } // why would this not be here?
 
     // Set it
     words[id].top = magnet.top;
@@ -41,7 +44,8 @@ export default function Fridge() {
 
     const id = magnet.id;
 
-    console.log(id, words[id]);
+    console.log(id, words);
+    if (!words[id]) { return; } // why would this not be here?
 
     // Set it
     words[id].top = magnet.top;
@@ -62,12 +66,15 @@ export default function Fridge() {
   const grabIt = (e) => {
     e.target.classList.remove('dropped');
     setCurrentMagnet(e.target);
+    setDragging(true);
     e.preventDefault();
   }
 
   const dragIt = (e) => {
+
     e.preventDefault();
     if (!currentMagnet) { return; }
+    if (!dragging) { return; }
 
     // Where the mouse actually is
     let top = e.pageY - fridgeTop - (currentMagnet.offsetHeight / 2);
@@ -96,12 +103,15 @@ export default function Fridge() {
   }
 
   const dropIt = async (e) => {
+
     e.preventDefault();
 
     if (!currentMagnet) { return; }
 
-    currentMagnet.classList.add('dropped');
     const id = currentMagnet.getAttribute('id');
+
+    currentMagnet.classList.add('dropped');
+    currentMagnet.classList.remove('moving');
 
     words[id].top = currentMagnet.style.top;
     words[id].left = currentMagnet.style.left;
@@ -110,6 +120,7 @@ export default function Fridge() {
     socket.emit('placed', words[id])
 
     setCurrentMagnet(null);
+    setDragging(false);
   }
 
   const placeWords = () => {
@@ -199,9 +210,6 @@ export default function Fridge() {
   // This happens on page render and puts the magnets wherever the DB says they are
   useEffect(() => {
 
-    socket.on('placed', itGotMoved);
-    socket.on('moving', iAmMmoving);
-
     const fridge = document.getElementById('fridge');
     setFridgeTop(fridge.getBoundingClientRect().top + window.scrollY);
     setFridgeLeft(fridge.getBoundingClientRect().left + window.scrollX);
@@ -210,19 +218,18 @@ export default function Fridge() {
 
     // If the screen moves, we lose control of the mouse because the coordinates change...
     window.addEventListener('resize', () => {
-      console.log('recalc');
       setFridgeTop(fridge.getBoundingClientRect().top + window.scrollY);
       setFridgeLeft(fridge.getBoundingClientRect().left + window.scrollX);
     });
 
     const getWords = async () => {
       const data = await read();
+      console.log('setting words', data);
       setWords(data);
       setLoaded(true);
     }
 
     getWords();
-    placeWords();
 
   }, [])
 
@@ -231,14 +238,24 @@ export default function Fridge() {
   // Therefore, we end up in a race condition and need to make a separate listener
   // on the "loaded" flag. Ugly, but whatever
   useEffect(() => {
-    loaded && placeWords()
+    if (loaded) {
+      console.log('loaded', words);
+      placeWords()
+    }
   }, [loaded])
 
   // After the initial positioning (above), we now randomize any magnets without a position
   useEffect(() => {
     if (positioned) {
+
+      console.log('positioned', positioned, words);
+
       // Words is a map, where the id is the DB ID, and the value is each word's object
       Object.keys(words).forEach(id => positionMagnet(words[id]));
+
+      socket.on('placed', itGotMoved);
+      socket.on('moving', iAmMmoving);
+
     }
   }, [positioned])
 
