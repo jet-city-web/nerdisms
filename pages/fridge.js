@@ -7,7 +7,7 @@ import { read, update } from './api/magnets.js';
 
 const socket = io.connect(`${process.env.NEXT_PUBLIC_API}/magnets`);
 
-export default function Fridge({ words }) {
+export default function Fridge() {
 
   const [fridgeTop, setFridgeTop] = useState(0);
   const [fridgeLeft, setFridgeLeft] = useState(0);
@@ -16,6 +16,8 @@ export default function Fridge({ words }) {
   const [magnets, setMagnets] = useState(0);
   const [currentMagnet, setCurrentMagnet] = useState(null);
   const [loaded, setLoaded] = useState(false);
+  const [positioned, setPositioned] = useState(false);
+  const [words, setWords] = useState([]);
 
   const itGotMoved = (magnet) => {
 
@@ -114,7 +116,7 @@ export default function Fridge({ words }) {
     const wordElements = Object.keys(words).map(id => addMagnet(words[id]));
     // const wordElements = words.map(word => addMagnet(word));
     setMagnets(wordElements);
-    setLoaded(true);
+    setPositioned(true);
   }
 
   const addMagnet = (word) => {
@@ -192,33 +194,44 @@ export default function Fridge({ words }) {
     return randomNumber;
   };
 
-
-
-  // Set the dimensions and drop the magnets on the board
+  // Set the dimensions
+  // Fetch the words from the DB
+  // drop the magnets on the board
   // This happens on page render and puts the magnets wherever the DB says they are
   useEffect(() => {
+
+    socket.on('placed', itGotMoved);
+    socket.on('moving', iAmMmoving)
+
     const fridge = document.getElementById('fridge');
     setFridgeTop(fridge.getBoundingClientRect().top + window.scrollY);
     setFridgeLeft(fridge.getBoundingClientRect().left + window.scrollX);
     setFridgeHeight(fridge.scrollHeight);
     setFridgeWidth(fridge.scrollWidth);
+
+    const getWords = async () => {
+      const data = await read();
+      setWords(data);
+      setLoaded(true);
+    }
+
+    getWords();
     placeWords();
+
   }, [])
+
+  // After we've got them loaded from the DB, position them
+  useEffect(() => {
+    loaded && placeWords()
+  }, [loaded])
 
   // After the initial positioning (above), we now randomize any magnets without a position
   useEffect(() => {
-    if (loaded) {
-      console.log(words);
+    if (positioned) {
       // Words is a map, where the id is the DB ID, and the value is each word's object
       Object.keys(words).forEach(id => positionMagnet(words[id]));
     }
-  }, [loaded])
-
-  useEffect(() => {
-    socket.on('placed', itGotMoved);
-    socket.on('moving', iAmMmoving);
-  }, [])
-
+  }, [positioned])
 
 
   return (
@@ -242,7 +255,7 @@ export default function Fridge({ words }) {
   )
 }
 
-export async function getStaticProps() {
-  const words = await read();
-  return { props: { words } };
-}
+// export async function getStaticProps() {
+//   const words = await read();
+//   return { props: { words } };
+// }
