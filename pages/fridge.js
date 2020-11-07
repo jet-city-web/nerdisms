@@ -201,13 +201,20 @@ export default function Fridge() {
   useEffect(() => {
 
     socket.on('placed', itGotMoved);
-    socket.on('moving', iAmMmoving)
+    socket.on('moving', iAmMmoving);
 
     const fridge = document.getElementById('fridge');
     setFridgeTop(fridge.getBoundingClientRect().top + window.scrollY);
     setFridgeLeft(fridge.getBoundingClientRect().left + window.scrollX);
     setFridgeHeight(fridge.scrollHeight);
     setFridgeWidth(fridge.scrollWidth);
+
+    // If the screen moves, we lose control of the mouse because the coordinates change...
+    window.addEventListener('resize', () => {
+      console.log('recalc');
+      setFridgeTop(fridge.getBoundingClientRect().top + window.scrollY);
+      setFridgeLeft(fridge.getBoundingClientRect().left + window.scrollX);
+    });
 
     const getWords = async () => {
       const data = await read();
@@ -221,6 +228,9 @@ export default function Fridge() {
   }, [])
 
   // After we've got them loaded from the DB, position them
+  // Can't be done in the [] useEffect becasue setWords() is technically async
+  // Therefore, we end up in a race condition and need to make a separate listener
+  // on the "loaded" flag. Ugly, but whatever
   useEffect(() => {
     loaded && placeWords()
   }, [loaded])
