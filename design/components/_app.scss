@@ -37,51 +37,48 @@ body {
     flex-direction: column;
     flex: 1;
 
-    main {
+    > main {
       flex: 1;
+      max-width: 1200px;
+      margin: auto;
       padding: 2em;
+      position: relative;
+      width: 100%;
+
+      &:after {
+        content: '';
+        background-image: url("/assets/baldy-lg-eyes-sideways.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center center;
+        bottom: 0;
+        left: 0;
+        opacity: .1;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: -1;
+      }
+
+      > header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+
+        .page-header-baldy {
+          background: $baseLight;
+          border-radius: 50%;
+          height: 6vw;
+          margin-right: 1rem;
+          padding: .2em;
+        }
+      }
+
+      > footer {
+        margin-top: 2rem;
+        text-align: center;
+      }
     }
-  }
-}
-
-main {
-  position: relative;
-  max-width: 1200px;
-  margin: auto;
-  width: 100%;
-
-  &:after {
-    content: '';
-    background-image: url("/assets/baldy-lg-eyes-sideways.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center center;
-    bottom: 0;
-    left: 0;
-    opacity: .1;
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: -1;
-  }
-
-  > header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 2rem;
-
-    .page-header-baldy {
-      background: $baseLight;
-      border-radius: 50%;
-      height: 6vw;
-      margin-right: 1rem;
-      padding: .2em;
-    }
-  }
-
-  > footer {
-    margin-top: 2rem;
-    text-align: center;
   }
 }
 
